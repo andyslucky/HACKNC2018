@@ -5,8 +5,9 @@ class UserInterface:
 
 
     def recordBtnClick(self):
-        if self.isClick:
-            input_controller.record()
+            response = input_controller.record()
+            input = input_controller.parseResponse(response)
+            print(input)
 
     def construct_buttons(self, window):
         btn = Button(window, text="Record", command=self.recordBtnClick)
