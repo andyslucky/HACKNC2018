@@ -16,6 +16,7 @@ def words_to_commands(sentence):
 
     return []
 
+
 def process_sentence(sentence):
     try:
         sentenceWordsTokenized = word_tokenize(sentence)
@@ -25,4 +26,9 @@ def process_sentence(sentence):
         print(str(e))
 
 
+<<<<<<< HEAD
+=======
+def words_to_commands(sentence):
+    print("test")
+>>>>>>> 2826d2ce213b3a8acbb6d5358fbd23f690ce3866
 
