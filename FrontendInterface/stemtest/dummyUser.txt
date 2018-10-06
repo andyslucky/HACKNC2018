@@ -1,0 +1,14 @@
+I want you to turn off the lamp
+[turn, off, lamp]
+Turn off the lamp
+[turn, off, lamp]
+Turn lamp off
+[turn, lamp, off] // Rearrange words in all possible combinations to find a proper sequence?
+Lamp off
+[lamp, off] // Assume "turn" comes before "off"
+Lamp terminate
+[lamp, terminate] // Assume terminate is same as off
+Give me a list of commands
+[list, commands]
+
+
