@@ -10,17 +10,11 @@ class UserInterface:
         self.construct_layout()
         self.construct_buttons()
         self.construct_displaytext()
-
         self.window.mainloop()
 
     def recordBtnClick(self):
         self.response = input_controller.record()
         self.construct_displaytext()
-<<<<<<< HEAD
-=======
-
->>>>>>> d3a1746c37fe1eb8b4f14fec0a77e4147a78e7aa
-
 
     def construct_buttons(self):
         btn = Button(self.window, text="Record", command=self.recordBtnClick)
