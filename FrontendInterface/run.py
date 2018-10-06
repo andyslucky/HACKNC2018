@@ -1,15 +1,17 @@
+import sys
+sys.path.insert(0,'../PiProject/')
+print(sys.path)
 import langprocessor
-from ..PiProject.Server import Server
+import Server
 
-#import input_io
+import input_io
 
-#requested_input = input_io.create_instance()
 
-#langprocessor.process_sentence(requested_input["transcription"])
+requested_input = input_io.create_instance()
 
-cmds = langprocessor.process_sentence("turn on off on off lights")
+commands = langprocessor.process_sentence(requested_input["transcription"])
 
-if cmds.get("error") is not None:
-    print("command has error message: " + cmds.get("error"))
+if commands.get("error") is not None:
+    print("command has error message: " + commands.get("error"))
 
 
