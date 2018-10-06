@@ -1,2 +1,6 @@
-PiProject/.idea
-FrontendInterface/.idea
+./PiProject/.idea
+./FrontendInterface/.idea
+./FrontendInterface/venv
+FrontendInterface/venv/
+FrontendInterface/.idea/
+PiProject/.idea/asdf.txt
