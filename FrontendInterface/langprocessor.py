@@ -47,3 +47,4 @@ def process_sentence(sentence):
         return cmds
     except Exception as e:
         print(str(e))
+
