@@ -72,15 +72,3 @@ class Server:
         # raise ValueError("Shit happened")
     def __del__(self):
         self.conn.close()
-
-s = None
-def read(client, response):
-    print(response)
-def clientConn(addr):
-    print(str(addr)+" Connected")
-    s.setState(addr,0)
-    s.getState(addr)
-def disconnected(addr):
-    print(str(addr)+" Disconnected!")
-s = Server(read,clientConn,disconnected)
-s.start()
