@@ -48,7 +48,3 @@ def process_sentence(sentence):
     except Exception as e:
         print(str(e))
 
-
-def words_to_commands(sentence):
-    print("test")
-
