@@ -46,10 +46,10 @@ class Server:
                 threading.Thread(target=self.__readAll,args=(sock,)).start()
     def connectedClients(self):
         return [c.getpeername() for c in self.clients]
-    def sendMsg(self,addr,message:str):
+    def __sendMsg(self,addr,message:str):
         for client in self.clients:
             if client.getpeername() == addr:
-                client.sendall(message)
+                client.sendall(message.encode("utf8"))
                 print("Sent "+message)
                 return
         print("Client not connected!")
@@ -64,11 +64,22 @@ class Server:
         except:
             client.close()
             pass
+    def setState(self,addr,state):
+        self.__sendMsg(addr,"COMMAND "+str(state))
+        pass
+    def getState(self,addr):
+        self.__sendMsg(addr,"GET STATE")
+        # raise ValueError("Shit happened")
+    def __del__(self):
+        self.conn.close()
 
+s = None
 def read(client, response):
     print(response)
 def clientConn(addr):
     print(str(addr)+" Connected")
+    s.setState(addr,0)
+    s.getState(addr)
 def disconnected(addr):
     print(str(addr)+" Disconnected!")
 s = Server(read,clientConn,disconnected)
