@@ -1,26 +1,41 @@
 import input_controller
 from tkinter import *
 
+
 class UserInterface:
 
+    def __init__(self):
+        self.response = "asdf"
+        self.window = Tk()
+        self.construct_layout()
+        self.construct_buttons()
+        self.construct_displaytext()
+
+        self.window.mainloop()
 
     def recordBtnClick(self):
-        input_controller.record()
+        self.response = input_controller.record()
+        self.construct_displaytext()
 
-    def construct_buttons(self, window):
-        btn = Button(window, text="Record", command=self.recordBtnClick)
+
+    def construct_buttons(self):
+        btn = Button(self.window, text="Record", command=self.recordBtnClick)
         btn.grid(column=0, row=0)
 
-    def construct_layout(self, window):
-        window.title("Welcome to adLess")
-        window.geometry('350x200')
-        lbl = Label(window)
+    def construct_layout(self):
+        self.window.title("Welcome to adLess")
+        self.window.geometry('350x200')
 
-    def __init__(self):
-        window = Tk()
-        self.construct_layout(window)
-        self.construct_buttons(window)
-        window.mainloop()
+    def construct_displaytext(self):
+        resp = self.response
+        print(resp)
+        lbl = Label(self.window, text=self.response)
+        lbl.grid(column=0, row=1)
+        pass
+
+
+
+
 
 
 
