@@ -1,9 +1,15 @@
 import langprocessor
-import input_io
+from ..PiProject.Server import Server
 
-requested_input = input_io.create_instance()
+#import input_io
 
-langprocessor.process_sentence(requested_input["transcription"])
+#requested_input = input_io.create_instance()
 
-langprocessor.process_sentence("turn off lights")
+#langprocessor.process_sentence(requested_input["transcription"])
+
+cmds = langprocessor.process_sentence("turn on off on off lights")
+
+if cmds.get("error") is not None:
+    print("command has error message: " + cmds.get("error"))
+
 
