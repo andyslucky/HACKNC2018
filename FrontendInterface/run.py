@@ -1,3 +1,6 @@
 import langprocessor
+import input_io
 
-langprocessor.process_content()
+requested_input = input_io.create_instance()
+
+langprocessor.process_sentence(requested_input["transcription"])
