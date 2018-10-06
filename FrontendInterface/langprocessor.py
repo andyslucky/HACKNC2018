@@ -20,10 +20,7 @@ def process_sentence(sentence):
     except Exception as e:
         print(str(e))
 
-<<<<<<< HEAD
-=======
-
 
 def words_to_commands(sentence):
     print("test")
->>>>>>> 76191b7c5bb58aca22e6d398fac046fad273b763
+
