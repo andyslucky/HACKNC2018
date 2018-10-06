@@ -4,6 +4,8 @@ import speech_recognition as recognition
 print(recognition.__version__)
 
 
+
+
 def time_displayer(_string):
     current_time = datetime.datetime.now()
     print(_string + str(current_time))
@@ -16,12 +18,12 @@ def create_instance():
         print("Say Something: ")
         audio: recognition.AudioData = recognizer.listen(source, phrase_time_limit=5)
         print("Waiting...")
-        parse_response = audio_recognizer(audio, recognizer)
+        preparedResponse = audioRecognizer(audio, recognizer)
 
-    return parse_response
+    return preparedResponse
 
 
-def audio_recognizer(_audio, _recognizer):
+def audioRecognizer(_audio, _recognizer):
     """
     This function is a helper function to parse the speech within a selected period.
     This function is also thread safe.
