@@ -6,6 +6,7 @@ class Server:
     def __init__(self, response):
         #@type = Thread
         self.__listener = None
+        self.__reader = None
         self.host =  "0.0.0.0"
         self.port = 2521
         self.conn = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -14,30 +15,46 @@ class Server:
     def start(self):
         self.conn.bind((self.host,self.port))
         self.__listener = threading.Thread(target=self.__listen,args=tuple([]))
+        self.__reader = threading.Thread(target=self.__scanForRead,args=tuple([]))
+        self.__reader.start()
         self.__listener.start()
+    def __close(self,client):
+        client.close()
+        print("Closing connection " + client.getpeername())
+        self.clients.remove(client)
     def __listen(self):
         self.conn.listen()
         while len(self.clients) < 4:
             client, addr = self.conn.accept()
             self.clients.append(client)
     def __scanForRead(self):
-        rlist, wlist,errlist = select.select(self.clients,[],[])
-        for sock in errlist:
-            sock.close()
-            self.clients.remove(sock)
-        for sock in rlist:
-            threading.Thread(target=self.__readAll,args=(sock,)).start()
+        while True:
+            for conn in self.clients:
+                if conn.fileno() == -1:
+                    self.clients.remove(conn)
+            if len(self.clients) == 0:
+                continue
+
+            rlist, wlist,errlist = select.select(self.clients,self.clients,self.clients,3)
+            for sock in errlist:
+                self.__close(sock)
+            for sock in rlist:
+                threading.Thread(target=self.__readAll,args=(sock,)).start()
 
 
     def __readAll(self,client: socket):
-        response = client.recv(128)
-        if response is not None and response != "":
-            self.response(client,response)
-        else:
+        try:
+            response = client.recv(128)
+            if response is not None and response != b"":
+                self.response(client,str(response))
+            else:
+                self.__close(client)
+        except:
             client.close()
-            self.clients.remove(client)
+            pass
 
 def read(client, response):
     print(response)
+    client.sendall("Hey".encode("utf8"))
 s = Server(read)
 s.start()
