@@ -14,19 +14,9 @@ class UserInterface:
         self.window.mainloop()
 
     def recordBtnClick(self):
-<<<<<<< HEAD
-            response = input_controller.record()
-            input = input_controller.parseResponse(response)
-            print(input)
-=======
-<<<<<<< HEAD
         self.response = input_controller.record()
         self.construct_displaytext()
-=======
-        if self.isClick:
-            input_controller.record()
->>>>>>> fc04fd68c3f0d85d37ef84a138e486f1d47d3dde
->>>>>>> 8c131cd47f08ae0c0afa6c89018c9139a585868d
+
 
 
     def construct_buttons(self):
