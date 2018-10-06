@@ -7,7 +7,7 @@ class Server:
         #@type = Thread
         self.__listener = None
         self.__reader = None
-        self.host =  "0.0.0.0"
+        self.host = "0.0.0.0"
         self.port = 2521
         self.conn = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.response = response
