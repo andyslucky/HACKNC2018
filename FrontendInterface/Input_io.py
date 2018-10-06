@@ -42,11 +42,12 @@ class Input_io:
         return response
 
     def response(self):
-        with self.microphone as source:
-            print("Say Something: ")
-            self.audio = self.recognizer.listen(source, phrase_time_limit=5)
-            print("Waiting...")
-            preparedResponse = self.audio_recognizer()
+        while self.audio is None:
+            with self.microphone as source:
+                print("Say Something: ")
+                self.audio = self.recognizer.listen(source)
+                print("Waiting...")
+                preparedResponse = self.audio_recognizer()
 
         return preparedResponse
 

@@ -7,7 +7,12 @@ def record():
     recognizer = speech_recognition.Recognizer();
     input = Input_io.Input_io(recognizer,microphone)
     response = input.response();
-    return response
+
+    if "on" in response['transcription']:
+        return True
+    else:
+        return False
+    #return response
 
 def parseResponse(response):
     output = response['transcription']
