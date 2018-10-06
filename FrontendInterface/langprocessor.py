@@ -11,15 +11,18 @@ def stemWords(wordList):
     return stemmedWords
 
 
+def words_to_commands(sentence):
+    print("test")
+
+    return []
 
 def process_sentence(sentence):
     try:
         sentenceWordsTokenized = word_tokenize(sentence)
-        print(stemWords(sentenceWordsTokenized))
+        sentenceStemmed = stemWords(sentenceWordsTokenized)
+        cmds = words_to_commands(sentenceStemmed)
     except Exception as e:
         print(str(e))
 
 
 
-def words_to_commands(sentence):
-    print("test")
