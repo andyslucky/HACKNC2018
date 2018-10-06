@@ -47,3 +47,11 @@ def process_sentence(sentence):
         return cmds
     except Exception as e:
         print(str(e))
+<<<<<<< HEAD
+
+
+def words_to_commands(sentence):
+    print("test")
+
+=======
+>>>>>>> 6946a2b350c063d7f8572b07023b76cd7a92c159
