@@ -5,10 +5,11 @@ class UserInterface:
 
 
     def recordBtnClick(self):
-        input_controller.record()
+        if self.isClick:
+            input_controller.record()
 
     def construct_buttons(self, window):
-        btn = Button(window, text="Record", command=self.recordBtnClick())
+        btn = Button(window, text="Record", command=self.recordBtnClick)
         btn.grid(column=0, row=0)
 
     def construct_layout(self, window):
