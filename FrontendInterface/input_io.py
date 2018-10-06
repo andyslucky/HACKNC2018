@@ -15,7 +15,7 @@ def create_instance():
     with microphone as source:
         print("Say Something: ")
         audio: recognition.AudioData = recognizer.listen(source, phrase_time_limit=5)
-        print(type(audio))
+        print("Waiting...")
         parse_response = audio_recognizer(audio, recognizer)
 
     return parse_response
