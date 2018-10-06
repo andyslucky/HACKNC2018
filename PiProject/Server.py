@@ -3,7 +3,7 @@ import select
 import threading
 ##This is the server object to be used by the front end
 class Server:
-    def __init__(self, response):
+    def __init__(self, response,clientconnected, clientdisconnected):
         #@type = Thread
         self.__listener = None
         self.__reader = None
@@ -11,6 +11,8 @@ class Server:
         self.port = 2521
         self.conn = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.response = response
+        self.clientconnected = clientconnected
+        self.clientdisconnected = clientdisconnected
         self.clients = []
     def start(self):
         self.conn.bind((self.host,self.port))
@@ -20,13 +22,15 @@ class Server:
         self.__listener.start()
     def __close(self,client):
         client.close()
-        print("Closing connection " + client.getpeername())
+        #print("Closing connection " + client.getpeername())
         self.clients.remove(client)
+        self.clientdisconnected(client.getpeername())
     def __listen(self):
         self.conn.listen()
         while len(self.clients) < 4:
             client, addr = self.conn.accept()
             self.clients.append(client)
+            self.clientconnected(addr)
     def __scanForRead(self):
         while True:
             for conn in self.clients:
@@ -40,7 +44,15 @@ class Server:
                 self.__close(sock)
             for sock in rlist:
                 threading.Thread(target=self.__readAll,args=(sock,)).start()
-
+    def connectedClients(self):
+        return [c.getpeername() for c in self.clients]
+    def sendMsg(self,addr,message:str):
+        for client in self.clients:
+            if client.getpeername() == addr:
+                client.sendall(message)
+                print("Sent "+message)
+                return
+        print("Client not connected!")
 
     def __readAll(self,client: socket):
         try:
@@ -55,6 +67,9 @@ class Server:
 
 def read(client, response):
     print(response)
-    client.sendall("Hey".encode("utf8"))
-s = Server(read)
+def clientConn(addr):
+    print(str(addr)+" Connected")
+def disconnected(addr):
+    print(str(addr)+" Disconnected!")
+s = Server(read,clientConn,disconnected)
 s.start()
