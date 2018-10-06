@@ -35,11 +35,11 @@ def words_to_commands(sentence):
     if len(cmd_dict.get("state")) == 0:
         cmd_dict["error"] = "No actions"
 
-    print(cmd_dict)
+    # print(cmd_dict)
 
     return cmd_dict
 
-def process_sentence(sentence):
+def process_sentence(sentence: object) -> object:
     try:
         sentenceWordsTokenized = word_tokenize(sentence)
         sentenceStemmed = stemWords(sentenceWordsTokenized)
