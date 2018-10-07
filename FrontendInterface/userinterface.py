@@ -1,7 +1,8 @@
+import Langprocessor_controller
 import input_controller
 from tkinter import *
 import Server
-import Langprocessor
+import input_lang_controller
 
 
 class UserInterface:
@@ -16,24 +17,20 @@ class UserInterface:
         self.construct_buttons()
         self.construct_displaytext()
         self.window.mainloop()
-
     def read(self,client,response):
         pass
-
-
     def connected(self,addr):
         self.deviceAddr = addr
         print("addr connected "+str(addr))
         pass
-
     def disconnected(self,addr):
         pass
-
     def recordBtnClick(self):
         val = input_controller.record()
-        self.response = val.get("transcription")
-        cmd = Langprocessor.process_sentence(self.response)
-        self.server.setState(self.deviceAddr, cmd)
+
+        self.response = str(val)
+        self.server.setState(self.deviceAddr,1 if val else 0)
+        #input_lang_controller.commands(self.response)
         self.construct_displaytext()
 
 
