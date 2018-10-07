@@ -24,26 +24,66 @@
   http://www.arduino.cc/en/Tutorial/Blink
 */
 
+typedef boolean foolean;
+
 int incomingByte;
+int loops;
+#define lamp 12
+#define led 13
+#define lightSensor analogRead(0)
+#define soundSensor analogRead(1)
+#define tempSensor analogRead(2)
+foolean lightIsOn;
+
+int lastSwitch;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
   Serial.begin(9600);
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(13, OUTPUT);
+  pinMode(12, OUTPUT);
+
+  loops = 0;
+
+  lightIsOn = false;
+
+  lastSwitch = 0;
 }
 
 // the loop function runs over and over again forever
 void loop() {
   if (Serial.available() > 0) {
+
+    // give output
+
+    loops++;
+
+//    Serial.println(String(loops) + " lightsense|" + String(analogRead(0)));
+//    Serial.println(String(loops) + " soundsense|" + String(analogRead(1)));
+//    Serial.println(String(loops) + " tempsense|" + String(analogRead(2)));   
+    Serial.println(String(lightSensor) + " " + String(soundSensor) + " " + String(tempSensor));
+
+    // if ( loud && enough time passed)
+    if (analogRead(1) > 300 && loops - lastSwitch > 100)
+    {
+      lightIsOn = !lightIsOn;
+      digitalWrite(led, lightIsOn ? HIGH : LOW);
+      lastSwitch = loops;
+    }
+
+    // recieve input
+    
     // read the oldest byte in the serial buffer:
     incomingByte = Serial.read();
     
     if (incomingByte == 'O') {
-      digitalWrite(13, HIGH);
+      digitalWrite(lamp, HIGH);
+      digitalWrite(led, LOW);
     }
     if (incomingByte == 'o') {
-      digitalWrite(13, LOW);
+      digitalWrite(lamp, LOW);
+      digitalWrite(led, HIGH);
     }
   }                          
 }
