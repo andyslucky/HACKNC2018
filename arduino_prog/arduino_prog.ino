@@ -1,3 +1,5 @@
+#include <CurieTime.h>
+
 /*
   Blink
 
@@ -23,6 +25,8 @@
 
   http://www.arduino.cc/en/Tutorial/Blink
 */
+
+
 typedef boolean foolean;
 
 int incomingByte;
@@ -37,8 +41,9 @@ foolean lightIsOn;
 int lastSwitch;
 
 int currentTime(){
-  return minute()*60 + seconds();
+  return minute()*60 + second();
 }
+
 // the setup function runs once when you press reset or power the board
 void setup() {
   Serial.begin(9600);
@@ -63,30 +68,26 @@ void loop() {
 
 //    Serial.println(String(loops) + " lightsense|" + String(analogRead(0)));
 //    Serial.println(String(loops) + " soundsense|" + String(analogRead(1)));
-//    Serial.println(String(loops) + " tempsense|" + String(analogRead(2)));   
+//    Serial.println(String(loops) + " tempsense|" + String(analogRead(2)));
     Serial.println(String(lightSensor) + " " + String(soundSensor) + " " + String(tempSensor));
 
-    // if ( loud && enough time passed)
     int time_now = currentTime();
-    if (analogRead(1) > 300 && time_now - lastSwitch >= 1)
-    {
-      lightIsOn = !lightIsOn;
-      digitalWrite(led, lightIsOn ? HIGH : LOW);
-      lastSwitch = time_now;
-    }
 
     // recieve input
-    
+
     // read the oldest byte in the serial buffer:
     incomingByte = Serial.read();
-    
-    if (incomingByte == 'O') {
-      digitalWrite(lamp, HIGH);
-      digitalWrite(led, LOW);
+    if (time_now - lastSwitch >= 1)
+    {
+      if (incomingByte == 'O') {
+        digitalWrite(lamp, HIGH);
+        digitalWrite(led, LOW);
+      }
+      if (incomingByte == 'o') {
+        digitalWrite(lamp, LOW);
+        digitalWrite(led, HIGH);
+      }
+      lastSwitch = time_now;
     }
-    if (incomingByte == 'o') {
-      digitalWrite(lamp, LOW);
-      digitalWrite(led, HIGH);
-    }
-  }                          
+  }
 }
