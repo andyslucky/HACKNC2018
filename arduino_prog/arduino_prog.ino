@@ -23,7 +23,6 @@
 
   http://www.arduino.cc/en/Tutorial/Blink
 */
-
 typedef boolean foolean;
 
 int incomingByte;
@@ -37,6 +36,9 @@ foolean lightIsOn;
 
 int lastSwitch;
 
+int currentTime(){
+  return minute()*60 + seconds();
+}
 // the setup function runs once when you press reset or power the board
 void setup() {
   Serial.begin(9600);
@@ -48,7 +50,7 @@ void setup() {
 
   lightIsOn = false;
 
-  lastSwitch = 0;
+  lastSwitch = currentTime();
 }
 
 // the loop function runs over and over again forever
@@ -65,11 +67,12 @@ void loop() {
     Serial.println(String(lightSensor) + " " + String(soundSensor) + " " + String(tempSensor));
 
     // if ( loud && enough time passed)
-    if (analogRead(1) > 300 && loops - lastSwitch > 100)
+    int time_now = currentTime();
+    if (analogRead(1) > 300 && time_now - lastSwitch >= 1)
     {
       lightIsOn = !lightIsOn;
       digitalWrite(led, lightIsOn ? HIGH : LOW);
-      lastSwitch = loops;
+      lastSwitch = time_now;
     }
 
     // recieve input
