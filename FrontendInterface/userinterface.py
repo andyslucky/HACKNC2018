@@ -58,13 +58,3 @@ class UserInterface:
         print(resp)
         self.lbl = Label(self.window, text="Not-Listening")
         self.lbl.grid(column=0, row=1)
-
-
-
-
-
-
-
-
-
-

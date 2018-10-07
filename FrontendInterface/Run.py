@@ -24,5 +24,4 @@ ui = UserInterface.UserInterface()
 
 # if commands.get("error") is not None:
 #     print("command has error message: " + commands.get("error"))
-
-
+#changes
