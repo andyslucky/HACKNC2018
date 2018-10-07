@@ -45,16 +45,8 @@ class UserInterface:
     def construct_displaytext(self):
         resp = self.response
         print(resp)
+        self.lbl = Label(self.window, text="Not-Listening")
+        self.lbl.grid(column=0, row=1)
         lbl = Label(self.window, text=self.response)
         lbl.grid(column=0, row=1)
         pass
-
-
-
-
-
-
-
-
-
-
