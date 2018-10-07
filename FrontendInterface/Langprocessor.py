@@ -37,6 +37,10 @@ def words_to_commands(sentence):
     elif len(cmd_dict.get("state")) == 0:
         cmd_dict["error"] = "No State Entered"
 
+    #if we say 'on' without a subject keyword (referring to our light), give error.
+    if cmd_dict.get("subject") is None:
+        cmd_dict["error"] = "No subject."
+
     print("DEBUG: cmd_dict is " + str(cmd_dict))
 
     # print(cmd_dict)
@@ -51,8 +55,11 @@ def cmd_parse(cmd_dict):
     elif cmd_dict.get("state") is "on":
         cmd_dict["state"] = True
         print("state \"on\" renamed to \"true\" " + cmd_dict.get("state"))
-    else:
-        cmd_dict["state"] = None
+
+    #If there are any errors, state will be None.
+    if cmd_dict.get("error") is not None:
+        cmd_dict["state"]=None
+
 
     print("DEBUG: State Value is " + str(cmd_dict.get("state")))
 
