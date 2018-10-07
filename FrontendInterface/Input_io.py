@@ -42,12 +42,19 @@ class Input_io:
         return response
 
     def response(self):
-        while self.audio is None:
+        preparedResponse = {}
+        buffer = ""
+        while True:
             with self.microphone as source:
                 print("Say Something: ")
-                self.audio = self.recognizer.listen(source)
+                self.audio = self.recognizer.listen(source,phrase_time_limit=2)
                 print("Waiting...")
                 preparedResponse = self.audio_recognizer()
-
+                if "transcription" in preparedResponse and preparedResponse['transcription'] is not None:
+                    buffer +=(" "+ preparedResponse['transcription'])
+                    if "on" in buffer.lower() or "off" in buffer.lower():
+                        break
+        preparedResponse['transcription'] = buffer
+        print(buffer)
         return preparedResponse
 

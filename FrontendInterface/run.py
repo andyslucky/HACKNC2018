@@ -1,5 +1,5 @@
 import Langprocessor
-import UserInterface
+import userinterface
 import Input_io
 import Server
 
@@ -19,7 +19,7 @@ import Server
 # server = Server.Server(read,connected,disconected)
 # server.start()
 
-ui = UserInterface.UserInterface()
+ui = userinterface.UserInterface()
 
 
 # if commands.get("error") is not None:
