@@ -8,11 +8,8 @@ def record():
     input = Input_io.Input_io(recognizer,microphone)
     response = input.response();
 
-    if "on" in response['transcription']:
-        return True
-    else:
-        return False
-    #return response
+
+    return response
 
 def parseResponse(response):
     output = response['transcription']
